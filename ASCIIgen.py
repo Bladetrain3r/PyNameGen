@@ -2,14 +2,16 @@ import random
 from os import path
 import getopt, sys
 
-opts, args = getopt.getopt(sys.argv[1:], "y")
-hasprefix = "n"
+opts, args = getopt.getopt(sys.argv[1:], "yn")
+hasprefix = ""
 
 for o, a in opts:
     if o == "-y":
         hasprefix = "y"
+    if o == "-n":
+        hasprefix = "n"
 
-if hasprefix != "y":
+if hasprefix == "":
     hasprefix = input("Prefix? Y/N").lower()
 
 # Randomly Generate a Name
