@@ -17,7 +17,7 @@ if hasprefix != "y":
 randomwords = []
 
 if path.exists("words.txt"):    
-    while len(randomwords) <= 200:
+    while len(randomwords) <= 10:
         pickword = random.choice(open("words.txt").readlines())
         # print(pickword)
         randomwords.append(pickword.strip('\n'))
