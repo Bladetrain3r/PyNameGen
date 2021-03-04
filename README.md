@@ -1,0 +1,1 @@
+A simple random name generator for spaceships or whatever.
