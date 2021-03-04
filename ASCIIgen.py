@@ -1,7 +1,19 @@
 import random
 from os import path
+import getopt, sys
+
+opts, args = getopt.getopt(sys.argv[1:], "y")
+hasprefix = "n"
+
+for o, a in opts:
+    if o == "-y":
+        hasprefix = "y"
+
+if hasprefix != "y":
+    hasprefix = input("Prefix? Y/N").lower()
 
 # Randomly Generate a Name
+
 randomwords = []
 
 if path.exists("words.txt"):    
@@ -32,7 +44,6 @@ def namegen(namelength, wordlist):
         return wordlist[0]
 
 #Change number of words in the name and number of letters in the prefix here.
-hasprefix = input("Prefix? Y/N").lower()
 finalname = namegen(2, randomwords)
 if hasprefix == "y":
     print(prefixgen(3, finalname))
