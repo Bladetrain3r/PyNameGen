@@ -19,7 +19,7 @@ if hasprefix == "":
 randomwords = []
 
 if path.exists("words.txt"):    
-    while len(randomwords) <= 10:
+    while len(randomwords) <= 20:
         pickword = random.choice(open("words.txt").readlines())
         # print(pickword)
         randomwords.append(pickword.strip('\n'))
@@ -33,14 +33,14 @@ def prefixgen(prefixlength, basename):
 
     prefix = []
     for item in range(preflength):
-        prefix.append(alphabet.split()[random.randrange(0, 25)])
+        prefix.append(random.choice(alphabet.split()))
     return str("%s %s" % ("".join(prefix).upper(), shipname))
 
 def namegen(namelength, wordlist):
     namelist = []
     if len(wordlist) > 1:
         while len(namelist) < namelength:
-            namelist.append(wordlist[random.randrange(0, len(wordlist))])
+            namelist.append(random.choice(wordlist))
         return " ".join(namelist)
     else:
         return wordlist[0]
