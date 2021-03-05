@@ -2,24 +2,36 @@ import random
 from os import path
 import getopt, sys
 
-opts, args = getopt.getopt(sys.argv[1:], "yn")
+opts, args = getopt.getopt(sys.argv[1:], "ynp:", "--prefix")
 hasprefix = ""
+customprefix = ""
+optlist = {"-y": "yes", "-n": "no", "-p": "custom"}
 
 for o, a in opts:
     if o == "-y":
-        hasprefix = "y"
-    if o == "-n":
-        hasprefix = "n"
+        hasprefix = "yes"
+    elif o == "-n":
+        hasprefix = "no"
+    elif o in ("-p", "--prefix"):
+        hasprefix = "custom"
+        customprefix = a
+    else:
+        assert False, "Unhandled Option"
+
 
 if hasprefix == "":
-    hasprefix = input("Prefix? Y/N").lower()
+    checkprefix = input("Random Prefix? Y/N ").lower()
+    hasprefix = optlist["-" + checkprefix]
+    if hasprefix == "no":
+        confirmcustom = str(input("Custom Name? Y/N ")).lower()
+        if confirmcustom == "y":
+            customprefix = input("Prefix? ").upper()
 
 # Randomly Generate a Name
-
 randomwords = []
 
 if path.exists("words.txt"):    
-    while len(randomwords) <= 20:
+    while len(randomwords) <= 5:
         pickword = random.choice(open("words.txt").readlines())
         # print(pickword)
         randomwords.append(pickword.strip('\n'))
@@ -47,8 +59,10 @@ def namegen(namelength, wordlist):
 
 #Change number of words in the name and number of letters in the prefix here.
 finalname = namegen(2, randomwords)
-if hasprefix == "y":
+if hasprefix == "yes":
     print(prefixgen(3, finalname))
+elif hasprefix == "custom":
+    print("%s %s" % (customprefix, finalname))
 else:
     print(finalname)
 
